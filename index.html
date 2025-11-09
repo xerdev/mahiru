@@ -1,99 +1,621 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mahiru Shiina — Malaikat Tetangga</title>
-  <meta name="description" content="Mahiru Shiina — halaman dedikasi. Kepribadian, latar belakang, dan momen kunci dalam estetika premium." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Mahiru Shiina – Malaikat Tetangga</title>
+  <meta name="description" content="Mahiru Shiina – halaman dedikasi. Kepribadian, latar belakang, dan momen kunci dalam estetika premium." />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS for utility classes (Optional but helpful for quick adjustments if needed later, though most here is custom CSS) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'accent-1': '#FFDAB9',
+            'accent-2': '#FFA07A',
+            'muted': '#6b6b6b',
+          },
+          fontFamily: {
+            'serif': ['"Playfair Display"', 'serif'],
+            'sans': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- Google Fonts (heading + body) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* --- CUSTOM CSS & RESETS --- */
+    :root {
+      --bg: #ffffff;
+      --accent-1: #FFDAB9;
+      --accent-2: #FFA07A;
+      --muted: #6b6b6b;
+      --shadow-sm: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 15px 40px rgba(16,16,24,0.12);
+      --max-width: 1100px;
+      --header-height: 70px;
+    }
 
-  <link rel="stylesheet" href="styles.css">
+    /* Base */
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #1A1A1A;
+      line-height: 1.7;
+      overflow-x: hidden; /* Prevent horizontal scroll on small devices */
+    }
+
+    /* Better Container */
+    .container-custom {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    @media (max-width: 640px) {
+      .container-custom { padding: 0 20px; }
+    }
+
+    /* --- HEADER & NAV --- */
+    .site-header {
+      height: var(--header-height);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .site-header.scrolled {
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-2);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #111; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Mobile Menu Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 101;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #111;
+      border-radius: 10px;
+      transition: all 0.3s linear;
+      position: relative;
+      transform-origin: 1px;
+    }
+    /* Hamburger Animation */
+    .hamburger.active span:first-child { transform: rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg); }
+
+    /* Mobile Nav Overlay */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-nav.active { transform: translateX(0); }
+    .mobile-nav a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #111;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+    .mobile-nav.active a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      min-height: 100dvh; /* dvh for better mobile browser support */
+      padding-top: var(--header-height);
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 10vw, 4rem); /* Aggressive clamping for small screens */
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    
+    /* Responsive Portrait */
+    .portrait-wrap {
+      position: relative;
+      /* Mobile First Sizing */
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 3/4; 
+      margin: 0 auto;
+      border-radius: 24px; /* More rounded */
+      background: linear-gradient(135deg, #fff, #fafafa);
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s ease;
+    }
+    /* Hover effect mainly for desktop */
+    @media (hover: hover) {
+       .portrait-wrap:hover { transform: translateY(-8px) scale(1.02) !important; }
+    }
+
+    .bokeh {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.5;
+      z-index: -1;
+    }
+    .bokeh-1 { width: 60%; height: 60%; top: -10%; left: -10%; background: var(--accent-1); animation: float 8s infinite ease-in-out; }
+    .bokeh-2 { width: 50%; height: 50%; bottom: -5%; right: -5%; background: var(--accent-2); animation: float 6s infinite ease-in-out reverse; }
+
+    /* --- BUTTONS --- */
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px; /* Pill shape is more modern */
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: #111;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -10px var(--accent-2);
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 2px solid #eee;
+      color: #111;
+    }
+    .btn-ghost:hover {
+      border-color: #111;
+      background: transparent;
+    }
+
+    /* --- SECTIONS --- */
+    .section-padding {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    @media (max-width: 768px) {
+      .section-padding { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+    }
+
+    /* --- GALLERY CARDS --- */
+    .card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/5; /* Consistent tall aspect ratio */
+      background: #f0f0f0;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .card:hover .card-img {
+      transform: scale(1.08);
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10px, -15px); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Media Queries for specific layout adjustments */
+    @media (max-width: 1023px) {
+      .nav-links-desktop { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (min-width: 1024px) {
+      .portrait-wrap {
+        width: 380px; /* Fixed larger size on desktop */
+        max-width: none;
+      }
+    }
+
+  </style>
 </head>
-<body>
-  <header class="site-header">
-    <nav class="nav container">
-      <a class="brand" href="#">Mahiru</a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-      </ul>
-    </nav>
+<body class="antialiased">
+
+  <!-- HEADER -->
+  <header id="header" class="site-header fixed w-full top-0 z-50 flex items-center">
+    <div class="container-custom flex items-center justify-between w-full">
+      <a href="#" class="font-serif text-2xl font-bold tracking-tight z-[102] relative">
+        Mahiru<span class="text-accent-2">.</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links-desktop hidden lg:flex items-center gap-10">
+        <a href="#home" class="nav-link text-sm uppercase tracking-wider">Home</a>
+        <a href="#about" class="nav-link text-sm uppercase tracking-wider">Tentang</a>
+        <a href="#gallery" class="nav-link text-sm uppercase tracking-wider">Galeri</a>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="menu-toggle" class="hamburger lg:hidden" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
+  <!-- MOBILE NAV OVERLAY -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">Tentang</a>
+    <a href="#gallery" onclick="closeMenu()">Galeri</a>
+  </div>
+
   <main>
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
-      <div class="hero-content container">
-        <div class="hero-left">
-          <h1 class="hero-title">
-            <span id="title-typed" class="title-animate" aria-hidden="true"></span>
-            <span class="sr-only" aria-hidden="true">Mahiru Shiina</span>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero relative flex items-center overflow-hidden">
+      <!-- Background Canvas for subtle particles -->
+      <canvas id="particle-canvas" class="absolute inset-0 pointer-events-none opacity-30"></canvas>
+
+      <div class="container-custom relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-12 lg:py-0">
+        <!-- Hero Text -->
+        <div class="order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <h1 class="hero-title font-serif font-bold mb-6 text-gray-900">
+            <span id="typed-text" class="relative inline-block"></span>
+            <span class="animate-pulse ml-1">|</span>
           </h1>
-          <p class="hero-sub">Malaikat yang tenang, hadiratnya menenangkan hari yang paling kacau sekalipun.</p>
-          <div class="hero-ctas">
-            <a class="btn primary" href="#about">Pelajari Lebih Lanjut</a>
-            <a class="btn ghost" href="#gallery">Lihat Galeri</a>
+          <p class="text-lg lg:text-xl text-muted max-w-md mb-10 leading-relaxed reveal delay-200">
+            Malaikat yang tenang, hadiratnya menenangkan hari yang paling kacau sekalipun. Keindahan dalam kesederhanaan.
+          </p>
+          <div class="flex flex-wrap justify-center lg:justify-start gap-4 reveal delay-300">
+            <a href="#about" class="btn btn-primary">Mengenal Mahiru</a>
+            <a href="#gallery" class="btn btn-ghost">Lihat Galeri</a>
           </div>
         </div>
 
-        <div class="hero-right">
-          <!-- SVG placeholder: stylized silhouette / soft bokeh -->
-          <div class="portrait-wrap" aria-hidden="true">
-            <img src="assets/placeholder-hero.jpg" alt="Placeholder art Mahiru" class="portrait">
+        <!-- Hero Portrait -->
+        <div class="order-1 lg:order-2 flex justify-center reveal delay-500">
+          <div id="portrait" class="portrait-wrap p-3 bg-white">
+            <!-- Bokeh Effects -->
             <div class="bokeh bokeh-1"></div>
             <div class="bokeh bokeh-2"></div>
+            <!-- Main Image -->
+            <div class="w-full h-full overflow-hidden rounded-2xl relative bg-gray-100 flex items-center justify-center">
+              <!-- Using uploaded placeholder or fallback if fails -->
+              <img src="assets/placeholder-hero.jpg" 
+                   alt="Mahiru Shiina Portrait" 
+                   class="w-full h-full object-cover"
+                   onerror="this.src='https://placehold.co/600x800/FFDAB9/333?text=Mahiru+Portrait'; this.onerror=null;">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section about container">
-      <h2 class="section-title reveal">Siapa itu Mahiru?</h2>
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p class="lead">Mahiru Shiina adalah keheningan yang membawa rasa aman. Dalam tatapannya terdapat keteguhan yang tak banyak bicara, namun setiap tindakan terasa seperti penjagaan lembut—misterius, hangat, dan penuh perhatian.</p>
-          <p>Kepribadiannya menyeimbangkan keanggunan dan kesederhanaan; ia tidak meminta sorotan, namun kehadirannya mengubah suhu ruangan. Sebagai "malaikat tetangga", perannya adalah penjaga kecil yang melakukan kebaikan tanpa pamrih.</p>
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-padding bg-orange-50/30">
+      <div class="container-custom">
+        <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Siapa itu Mahiru?</h2>
+          <div class="w-20 h-1 bg-accent-2 mx-auto rounded-full mb-6"></div>
+          <p class="text-muted text-lg">Mengenal lebih dekat sosok yang membawa ketenangan dan kehangatan.</p>
         </div>
-        <ul class="about-list reveal">
-          <li><strong>Tenang & Cermat:</strong> Menghadirkan stabilitas dalam momen-momen rumit.</li>
-          <li><strong>Peduli Tulus:</strong> Tindakan lebih berharga dari kata-kata.</li>
-          <li><strong>Estetika Minimalis:</strong> Rasa seni yang halus dan elegan.</li>
-        </ul>
+
+        <div class="grid md:grid-cols-5 gap-10 items-center">
+          <div class="md:col-span-3 space-y-6 text-lg text-gray-700 leading-relaxed reveal">
+            <p class="font-medium text-xl text-gray-900">
+              "Malaikat" bukan hanya julukan, melainkan cerminan dari ketulusan hatinya.
+            </p>
+            <p>
+              Mahiru Shiina menyeimbangkan keanggunan dan kesederhanaan; ia tidak meminta sorotan, namun kehadirannya mengubah suhu ruangan menjadi lebih hangat. Perannya adalah penjaga kecil yang melakukan kebaikan tanpa pamrih.
+            </p>
+            <p>
+              Dalam setiap gerak-geriknya, terpancar keindahan yang tenang—seperti salju pertama di pagi hari, atau cahaya rembulan yang menerangi jalan pulang.
+            </p>
+          </div>
+          <div class="md:col-span-2 reveal delay-200">
+            <ul class="space-y-4">
+              <li class="p-5 bg-white rounded-2xl shadow-sm border-l-4 border-accent-2 hover:shadow-md transition-shadow">
+                <strong class="block text-gray-900 text-lg mb-1">Tenang & Cermat</strong>
+                <span class="text-muted">Stabilitas dalam momen rumit.</span>
+              </li>
+              <li class="p-5 bg-white rounded-2xl shadow-sm border-l-4 border-accent-1 hover:shadow-md transition-shadow">
+                <strong class="block text-gray-900 text-lg mb-1">Peduli Tulus</strong>
+                <span class="text-muted">Tindakan melebihi kata-kata.</span>
+              </li>
+              <li class="p-5 bg-white rounded-2xl shadow-sm border-l-4 border-gray-200 hover:shadow-md transition-shadow">
+                <strong class="block text-gray-900 text-lg mb-1">Estetika Minimalis</strong>
+                <span class="text-muted">Rasa seni yang halus dan elegan.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- GALLERY -->
-    <section id="gallery" class="section gallery container">
-      <h2 class="section-title reveal">Gallery / Key Moments</h2>
-      <p class="muted reveal">Cuplikan momen yang menggambarkan kepribadian dan dinamika Mahiru.</p>
-      <div class="gallery-grid">
-        <figure class="card reveal">
-          <img src="assets/gallery-1.jpg" alt="Momen 1 placeholder">
-          <figcaption>Kesederhanaan yang menyentuh hati.</figcaption>
-        </figure>
-        <figure class="card reveal">
-          <img src="assets/gallery-2.jpg" alt="Momen 2 placeholder">
-          <figcaption>Pertemuan yang mengubah hari.</figcaption>
-        </figure>
-        <figure class="card reveal">
-          <img src="assets/gallery-3.jpg" alt="Momen 3 placeholder">
-          <figcaption>Senja nyaman di samping jendela.</figcaption>
-        </figure>
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="section-padding">
+      <div class="container-custom mb-16 text-center reveal">
+         <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Key Moments</h2>
+         <p class="text-muted text-lg max-w-xl mx-auto">Cuplikan momen yang menggambarkan dinamika dan kepribadiannya.</p>
+      </div>
+
+      <div class="container-custom">
+        <!-- Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
+          
+          <!-- Gallery Item 1 -->
+          <figure class="card reveal">
+            <div class="card-img-wrap">
+              <img src="assets/gallery-1.jpg" 
+                   alt="Momen Mahiru 1" 
+                   class="card-img"
+                   loading="lazy"
+                   onerror="this.src='https://placehold.co/400x500/f5f5f5/adb5bd?text=Moment+1'; this.onerror=null;">
+            </div>
+            <figcaption class="p-5 text-center">
+              <h3 class="font-serif font-bold text-lg mb-1">Kelembutan Hati</h3>
+              <p class="text-muted text-sm">Tatapan yang penuh makna tersirat.</p>
+            </figcaption>
+          </figure>
+
+          <!-- Gallery Item 2 -->
+          <figure class="card reveal delay-100">
+            <div class="card-img-wrap">
+              <img src="assets/gallery-2.jpg" 
+                   alt="Momen Mahiru 2" 
+                   class="card-img"
+                   loading="lazy"
+                   onerror="this.src='https://placehold.co/400x500/f5f5f5/adb5bd?text=Moment+2'; this.onerror=null;">
+            </div>
+            <figcaption class="p-5 text-center">
+              <h3 class="font-serif font-bold text-lg mb-1">Senyum Tulus</h3>
+              <p class="text-muted text-sm">Saat dinding pemisah mulai runtuh.</p>
+            </figcaption>
+          </figure>
+
+           <!-- Gallery Item 3 -->
+           <figure class="card reveal delay-200">
+            <div class="card-img-wrap">
+              <img src="assets/gallery-3.jpg" 
+                   alt="Momen Mahiru 3" 
+                   class="card-img"
+                   loading="lazy"
+                   onerror="this.src='https://placehold.co/400x500/f5f5f5/adb5bd?text=Moment+3'; this.onerror=null;">
+            </div>
+            <figcaption class="p-5 text-center">
+              <h3 class="font-serif font-bold text-lg mb-1">Kenyamanan</h3>
+              <p class="text-muted text-sm">Menemukan ketenangan dalam hal kecil.</p>
+            </figcaption>
+          </figure>
+
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <small>Halaman fan-made — Sumber: The Angel Next Door Spoils Me Rotten • 2025</small>
+  <!-- FOOTER -->
+  <footer class="py-8 text-center text-muted text-sm border-t border-gray-100 bg-gray-50">
+    <div class="container-custom">
+      <p>© 2025 Mahiru Fan Page. Dibuat dengan <span class="text-red-400">❤</span> oleh firman.</p>
     </div>
   </footer>
 
-  <script src="scripts.js" defer></script>
+  <!-- SCRIPTS -->
+  <script>
+    // --- MOBILE MENU TOGGLE ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const body = document.body;
+
+    function toggleMenu() {
+      menuToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      // Prevent scrolling when menu is open
+      body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+      menuToggle.classList.remove('active');
+      mobileNav.classList.remove('active');
+      body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // --- TYPEWRITER EFFECT ---
+    const text = "Mahiru Shiina";
+    const typedTextSpan = document.getElementById('typed-text');
+    let charIndex = 0;
+
+    function type() {
+      if (charIndex < text.length) {
+        typedTextSpan.textContent += text.charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 150 + Math.random() * 100); // Random typing speed for realism
+      } else {
+        setTimeout(erase, 5000); // Wait before erasing
+      }
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = text.substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        setTimeout(type, 1000);
+      }
+    }
+    // Start typing after a short delay
+    setTimeout(type, 1000);
+
+
+    // --- HEADER SCROLL EFFECT ---
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+
+    // --- REVEAL ON SCROLL ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target); // Only reveal once for better performance
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+
+    // --- PARALLAX EFFECT FOR PORTRAIT (Subtle) ---
+    const portrait = document.getElementById('portrait');
+    document.addEventListener('mousemove', (e) => {
+      if (window.innerWidth < 1024) return; // Disable on mobile
+      const mouseX = e.clientX / window.innerWidth - 0.5;
+      const mouseY = e.clientY / window.innerHeight - 0.5;
+      
+      portrait.style.transform = `perspective(1000px) rotateY(${mouseX * 5}deg) rotateX(${mouseY * -5}deg)`;
+    });
+
+
+    // --- PARTICLE CANVAS BACKGROUND ---
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    // Set canvas size
+    function setCanvasSize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    setCanvasSize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = `rgba(255, 218, 185, ${Math.random() * 0.5})`; // Apricot color with varying opacity
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // Wrap around screen
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      // Reduce particle count on mobile for performance
+      const numberOfParticles = window.innerWidth < 768 ? 30 : 80;
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      setCanvasSize();
+      initParticles();
+    });
+
+    initParticles();
+    animateParticles();
+
+  </script>
 </body>
 </html>
